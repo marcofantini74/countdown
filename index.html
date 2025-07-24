@@ -1,0 +1,113 @@
+
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Countdown Oktoberfest</title>
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    background: url('sfondo.jpg') no-repeat center center/cover;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: white;
+    text-align: center;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .overlay {
+    background-color: rgba(0, 0, 50, 0.5);
+    padding: 40px;
+    border-radius: 15px;
+    display: inline-block;
+  }
+  img.logo {
+    max-width: 200px;
+    margin-bottom: 20px;
+  }
+  h1 {
+    font-size: 2em;
+    margin-bottom: 30px;
+    font-weight: bold;
+  }
+  .countdown {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+  }
+  .time-box {
+    background: rgba(0, 0, 100, 0.8);
+    border-radius: 10px;
+    padding: 20px 25px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.6);
+    min-width: 80px;
+  }
+  .number {
+    font-size: 2em;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  .label {
+    font-size: 0.9em;
+    text-transform: uppercase;
+  }
+  @media (max-width: 600px) {
+    .countdown {
+      gap: 10px;
+    }
+    .time-box {
+      padding: 10px 12px;
+    }
+    .number {
+      font-size: 1.5em;
+    }
+    .label {
+      font-size: 0.8em;
+    }
+  }
+</style>
+</head>
+<body>
+  <div class="overlay">
+    <img src="logo.png" alt="Logo" class="logo">
+    <h1>Countdown Oktoberfest</h1>
+    <div class="countdown">
+      <div class="time-box">
+        <div class="number" id="days">--</div>
+        <div class="label">Giorni</div>
+      </div>
+      <div class="time-box">
+        <div class="number" id="hours">--</div>
+        <div class="label">Ore</div>
+      </div>
+      <div class="time-box">
+        <div class="number" id="minutes">--</div>
+        <div class="label">Minuti</div>
+      </div>
+    </div>
+  </div>
+
+<script>
+function aggiornaCountdown() {
+  const now = new Date().getTime();
+  const targetDate = new Date('2025-09-20T12:00:00+02:00').getTime();
+  const distance = targetDate - now;
+  if (distance < 0) {
+    document.querySelector('.overlay').innerHTML = "<h1>È arrivato il momento!</h1>";
+    return;
+  }
+  const giorni = Math.floor(distance / (1000 * 60 * 60 * 24));
+  const ore = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const minuti = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  document.getElementById('days').textContent = giorni;
+  document.getElementById('hours').textContent = ore;
+  document.getElementById('minutes').textContent = minuti;
+}
+aggiornaCountdown();
+setInterval(aggiornaCountdown, 1000);
+</script>
+</body>
+</html>
